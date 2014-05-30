@@ -153,6 +153,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ComplementaryFilter\ComplementaryFilter.vcxproj">
+      <Project>{94AE8368-9195-4467-8CF1-350095F74108}</Project>
+      <Name>ComplementaryFilter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\kuntakinte\kuntakinte.vcxproj">
       <Project>{F60304A6-1412-466E-B954-B667812AAF4E}</Project>
       <Name>kuntakinte</Name>

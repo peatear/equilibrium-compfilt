@@ -2,10 +2,11 @@
 
 namespace ComplementaryFilter
 {
-	public ref class ComplementaryFilter sealed
+	public ref class CompFilter sealed
     {
     public:
-		ComplementaryFilter(float dt, float alpha, float beta);
+
+		void ComplementaryFilterInit(float dt, float alpha, float beta);
 		float update(float acc_rate, float gyro_rate);
 		void reset(void);
 

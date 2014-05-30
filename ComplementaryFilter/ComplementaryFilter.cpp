@@ -2,21 +2,22 @@
 #include "pch.h"
 #include "ComplementaryFilter.h"
 
-//using namespace ComplementaryFilter;
-using namespace Platform;
+using namespace ComplementaryFilter;
+//using namespace Platform;
 //namespace required to support sensor and events
-using namespace Windows::Devices::Sensors;
-using namespace Windows::Foundation;
-using namespace Windows::System::Threading;
+//using namespace Windows::Devices::Sensors;
+//using namespace Windows::Foundation;
+//using namespace Windows::System::Threading;
 
-using namespace Windows::Foundation::Collections;
+//using namespace Windows::Foundation::Collections;
 
 //namespace for UI control
-using namespace Windows::UI::Xaml;
-using namespace Windows::UI::Xaml::Media;
+//using namespace Windows::UI::Xaml;
+//using namespace Windows::UI::Xaml::Media;
 
 
-ComplementaryFilter::ComplementaryFilter(float dt, float alpha, float beta)
+
+void CompFilter::ComplementaryFilterInit(float dt, float alpha, float beta)
 {
 	this->dt = dt;
 	this->alpha = alpha;
@@ -25,7 +26,7 @@ ComplementaryFilter::ComplementaryFilter(float dt, float alpha, float beta)
 
 
 
-void ComplementaryFilter::reset(void)
+void CompFilter::reset(void)
 {
 	this->angle = 0;
 }
@@ -35,7 +36,7 @@ void ComplementaryFilter::reset(void)
 * x_acc = (float)(x_acc_ADC – x_acc_offset) * x_acc_scale;
 * gyro  = (float)(gyro_ADC – gyro_offset)   * gyro_scale;
 */
-float ComplementaryFilter::update(float acc_angle, float gyro_rate)
+float CompFilter::update(float acc_angle, float gyro_rate)
 {
 	this->angle = (alpha * (this->angle + (gyro_rate * dt))) + (beta * acc_angle);
 	return this->angle;
