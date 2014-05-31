@@ -92,6 +92,8 @@ flightbox::flightbox()
 	pitchRateEint = 0;
 
 	fault = 0;
+	ComplementaryAngleX = 0.0;
+	ComplementaryAngleY = 0.0;
 }
 
 
