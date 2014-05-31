@@ -157,7 +157,8 @@ void flightbox::OnInclineReadingChanged(Inclinometer ^sender, InclinometerReadin
 	rpy[PITCH] = args->Reading->PitchDegrees;
 	rpy[YAW] = args->Reading->YawDegrees;
 
-	
+	accelerometer->GetCurrentReading();
+
 	
 	
 	rollE = rpy[ROLL];
@@ -203,7 +204,7 @@ void flightbox::OnGyroReadingChanged(Gyrometer^sender, GyrometerReadingChangedEv
 	omega[ROLL] = args->Reading->AngularVelocityY;
 	omega[PITCH] = args->Reading->AngularVelocityX;
 	omega[YAW] = args->Reading->AngularVelocityZ;
-
+	
 	/*
 	
 	
