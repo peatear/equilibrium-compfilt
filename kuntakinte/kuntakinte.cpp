@@ -98,8 +98,8 @@ flightbox::flightbox()
 	kp = 0.7;
 	ki = 0.0;
 	kd = 0.0;
-	angleX = 0;
-	angleY = 0;
+	angleX = 0.0;
+	angleY = 0.0;
 	lastErrorX = 0.0;
 	lastErrorY = 0.0;
 	integralX = 0.0;
@@ -212,15 +212,14 @@ void flightbox::OnInclineReadingChanged(Inclinometer ^sender, InclinometerReadin
 
 void flightbox::OnGyroReadingChanged(Gyrometer^sender, GyrometerReadingChangedEventArgs ^args){
 	
-	AccelerometerReadingChangedEventArgs ^argsAcc;
-
 	omega[ROLL] = args->Reading->AngularVelocityY;
 	omega[PITCH] = args->Reading->AngularVelocityX;
 	omega[YAW] = args->Reading->AngularVelocityZ;
 
-//	rpy[ROLL] = argsAcc->Reading->AccelerationX;
-	//rpy[PITCH] = argsAcc->Reading->AccelerationY;
-	//rpy[YAW] = argsAcc->Reading->AccelerationZ;
+	rpy[ROLL] = accelerometer->GetCurrentReading()->AccelerationX;
+	rpy[PITCH] = accelerometer->GetCurrentReading()->AccelerationY;
+	rpy[YAW] = accelerometer->GetCurrentReading()->AccelerationZ;
+
 	
 	
 	//for roll (x) direction 

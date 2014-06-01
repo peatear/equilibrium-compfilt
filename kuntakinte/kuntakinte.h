@@ -154,6 +154,7 @@ namespace kuntakinte
 		void OnInclineReadingChanged(Inclinometer ^sender, InclinometerReadingChangedEventArgs ^args);
 		void OnGyroReadingChanged(Gyrometer^sender, GyrometerReadingChangedEventArgs^args);
 		void OnAccelReadingChanged(Accelerometer ^sender, AccelerometerReadingChangedEventArgs ^args);
+		//void OnAccelGyroReadingChanged(Accelerometer ^sender, AccelerometerReadingChangedEventArgs ^args, gyrome)
 
 		void initBt();
 		
