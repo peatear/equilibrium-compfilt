@@ -94,7 +94,7 @@ flightbox::flightbox()
 	fault = 0;
 	//ComplementaryAngleX = 0.0;
 	//ComplementaryAngleY = 0.0;
-	dt = 0.005;// This is for interval in seconds
+	dt = 0.01;// This is for interval in seconds
 	kp = 0.7;
 	ki = 0.0;
 	kd = 0.0;
@@ -168,9 +168,7 @@ void flightbox::OnInclineReadingChanged(Inclinometer ^sender, InclinometerReadin
 	rpy[YAW] = args->Reading->YawDegrees;
 
 	//accelerometer->GetCurrentReading();
-	//GyrometerReadingChangedEventArgs ^argss;
 
-	//argss->Reading->AngularVelocityX;
 	
 	
 	rollE = rpy[ROLL];
@@ -245,12 +243,13 @@ void flightbox::OnGyroReadingChanged(Gyrometer^sender, GyrometerReadingChangedEv
 
 	lastErrorY = errorY;
 
-	gyroEvent(rpy);
+	
 	motors[0] = offsetX;
 	motors[2] = 255 - offsetX;
 	motors[1] = offsetY;
 	motors[3] = 255 - offsetY;
-
+	
+	gyroEvent(rpy);
 	motorEvent(motors);
 
 	//_pid = contribuicao;
