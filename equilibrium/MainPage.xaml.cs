@@ -83,7 +83,9 @@ namespace equilibrium
             mflightbox = new flightbox(); // initialize a new flightbox
 
 
-            mflightbox.inclineEvent += fb_inclineEvent;
+            //mflightbox.inclineEvent += fb_inclineEvent;
+
+            mflightbox.gyroEvent += mflightbox_gyroEvent;
 
             mflightbox.motorEvent += mflightbox_motorEvent;
 
@@ -98,6 +100,22 @@ namespace equilibrium
             //timer.Start();
             mthrottle = 0;
 
+        }
+
+        void mflightbox_gyroEvent(float[] data)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                roll = data[0];
+                pitch = data[1];
+                yaw = data[2];
+                rollTextBlock.Text = roll.ToString("f2");
+                pitchTextBlock.Text = pitch.ToString("f2");
+                yawTextBlock.Text = yaw.ToString("f2");
+
+
+
+            });
         }
 
         void mflightbox_motorEvent(int[] data)
