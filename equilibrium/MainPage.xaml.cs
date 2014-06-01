@@ -66,6 +66,7 @@ namespace equilibrium
         //timer
         DispatcherTimer timer;
 
+        Motion motion;
 
         //throttle
         float mthrottle;

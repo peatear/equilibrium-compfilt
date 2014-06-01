@@ -108,6 +108,18 @@ namespace kuntakinte
 
 
 		float fault;
+
+		float dt;
+		float kp;
+		float ki;
+		float kd;
+		float angleX;
+		float angleY;
+		float lastErrorX;
+		float lastErrorY;
+		float integralX;
+		float integralY;
+
     public:
 
 		//angular velocity array

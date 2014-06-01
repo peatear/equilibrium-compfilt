@@ -92,8 +92,18 @@ flightbox::flightbox()
 	pitchRateEint = 0;
 
 	fault = 0;
-	ComplementaryAngleX = 0.0;
-	ComplementaryAngleY = 0.0;
+	//ComplementaryAngleX = 0.0;
+	//ComplementaryAngleY = 0.0;
+	dt = 0.005;// This is for interval in seconds
+	kp = 0.7;
+	ki = 0.0;
+	kd = 0.0;
+	angleX = 0;
+	angleY = 0;
+	lastErrorX = 0.0;
+	lastErrorY = 0.0;
+	integralX = 0.0;
+	integralY = 0.0;
 }
 
 
@@ -157,8 +167,10 @@ void flightbox::OnInclineReadingChanged(Inclinometer ^sender, InclinometerReadin
 	rpy[PITCH] = args->Reading->PitchDegrees;
 	rpy[YAW] = args->Reading->YawDegrees;
 
-	accelerometer->GetCurrentReading();
+	//accelerometer->GetCurrentReading();
+	//GyrometerReadingChangedEventArgs ^argss;
 
+	//argss->Reading->AngularVelocityX;
 	
 	
 	rollE = rpy[ROLL];
@@ -167,6 +179,7 @@ void flightbox::OnInclineReadingChanged(Inclinometer ^sender, InclinometerReadin
 	rollEint += rollE*tickgyro;
 	pitchEint += pitchE*tickgyro;
 
+	
 
 
 	cmdRollRate = 128+rollGain[0] * rpy[ROLL] + rollGain[1] * rollEint + rollGain[2] * (-omega[ROLL]);
@@ -199,11 +212,43 @@ void flightbox::OnInclineReadingChanged(Inclinometer ^sender, InclinometerReadin
 
 void flightbox::OnGyroReadingChanged(Gyrometer^sender, GyrometerReadingChangedEventArgs ^args){
 	
-
+	AccelerometerReadingChangedEventArgs ^argsAcc;
 
 	omega[ROLL] = args->Reading->AngularVelocityY;
 	omega[PITCH] = args->Reading->AngularVelocityX;
 	omega[YAW] = args->Reading->AngularVelocityZ;
+
+	rpy[ROLL] = argsAcc->Reading->AccelerationX;
+	rpy[PITCH] = argsAcc->Reading->AccelerationY;
+	rpy[YAW] = argsAcc->Reading->AccelerationZ;
+	
+	
+	//for roll (x) direction 
+	angleX = (0.995 * (angleX + (omega[ROLL] * dt))) + (0.005 * rpy[ROLL]);
+
+	//for pitch (y) direction
+	angleY = (0.995 * (angleY + (omega[PITCH] * dt))) + (0.005 * rpy[PITCH]);
+
+	//////////PID ///////////////
+	float errorX = 0 - angleX;
+	float derivativeX = (errorX - lastErrorX) / dt;
+	integralX = (integralX + (errorX*dt));
+
+	float offsetX = (kp*errorX) + (ki*integralX) + (kd*derivativeX);
+
+	lastErrorX = errorX;
+
+	float errorY = 0 - angleY;
+	float derivativeY = (errorY - lastErrorY) / dt;
+	integralY = (integralY + (errorY*dt));
+
+	float offsetY = (kp*errorY) + (ki*integralY) + (kd*derivativeY);
+
+	lastErrorY = errorY;
+
+
+	//_pid = contribuicao;
+
 	
 	/*
 	
