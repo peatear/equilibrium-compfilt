@@ -214,12 +214,6 @@ void flightbox::OnGyroReadingChanged(Gyrometer^sender, GyrometerReadingChangedEv
 	omega[PITCH] = args->Reading->AngularVelocityX;
 	omega[YAW] = args->Reading->AngularVelocityZ;
 
-	rpy[ROLL] = accelerometer->GetCurrentReading()->AccelerationX;
-	rpy[PITCH] = accelerometer->GetCurrentReading()->AccelerationY;
-	rpy[YAW] = accelerometer->GetCurrentReading()->AccelerationZ;
-
-	
-	
 	//for roll (x) direction 
 	angleX = (0.995 * (angleX + (omega[ROLL] * dt))) + (0.005 * rpy[ROLL]);
 
@@ -250,7 +244,7 @@ void flightbox::OnGyroReadingChanged(Gyrometer^sender, GyrometerReadingChangedEv
 	motors[3] = 255 - offsetY;
 	
 	gyroEvent(rpy);
-	motorEvent(motors);
+	//motorEvent(motors);
 
 	//_pid = contribuicao;
 
@@ -296,6 +290,9 @@ void flightbox::OnGyroReadingChanged(Gyrometer^sender, GyrometerReadingChangedEv
 
 void flightbox::OnAccelReadingChanged(Accelerometer ^sender, AccelerometerReadingChangedEventArgs ^args)
 {
+	rpy[ROLL] = args->Reading->AccelerationX;
+	rpy[PITCH] = args->Reading->AccelerationY;
+	rpy[YAW] = args->Reading->AccelerationZ;
 
 }
 

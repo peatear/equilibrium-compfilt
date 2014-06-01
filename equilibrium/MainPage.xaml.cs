@@ -86,6 +86,7 @@ namespace equilibrium
             //mflightbox.inclineEvent += fb_inclineEvent;
 
             mflightbox.gyroEvent += mflightbox_gyroEvent;
+            mflightbox.accelEvent+=mflightbox_accelEvent;
 
             mflightbox.motorEvent += mflightbox_motorEvent;
 
@@ -102,14 +103,16 @@ namespace equilibrium
 
         }
 
+      
+
        // private void mflightbox_gyroEvent(float[] __param0)
         //{
         
         //}
 
-        private void mflightbox_gyroEvent(int[] data)
+        private void mflightbox_gyroEvent(float[] data)
         {
-            updateMotorDrive( data);
+           // updateMotorDrive( );
             // mConManager.SendCommand(data);
 
             Dispatcher.BeginInvoke(() =>
@@ -119,7 +122,7 @@ namespace equilibrium
                 motor0.Text = data[0].ToString();
                 motor1.Text = data[1].ToString();
                 motor2.Text = data[2].ToString();
-                motor3.Text = data[3].ToString();
+                //motor3.Text = data[3].ToString();
 
                 //updateMotorDrive(data);
             });
@@ -152,10 +155,10 @@ namespace equilibrium
         void mflightbox_accelEvent(float[] __param0)
         {
             //updateMotorDrive(data);
-            Dispatcher.BeginInvoke(() =>
-            {
+           // Dispatcher.BeginInvoke(() =>
+           // {
                
-            });
+           // });
         }
         
         private async void boutThatAction()
